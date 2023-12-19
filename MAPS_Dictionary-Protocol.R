@@ -450,7 +450,7 @@ dictionary.df[n1,9] <- "millet, pearl, flour, raw"
 dictionary.df[n1,12] <- "also called bulrush millet"
 dictionary.df[n1,13] <- "pennisetum glaucum"
 
-#Rice, brown, raw
+# rice grain, brown, dried, raw
 
 id2 <- "23162"
 
@@ -462,7 +462,7 @@ dictionary.df[n1,] <- dictionary.df[n2,]
 
 dictionary.df[n1,7] <- paste0(id2, ".01")
 dictionary.df[n1,8] <- NA
-dictionary.df[n1,9] <- "rice, brown, raw"
+dictionary.df[n1,9] <- "rice grain, brown, dried, raw"
 dictionary.df[n1,12] <- NA
 dictionary.df[n1,13] <- "oryza sativa"
 
@@ -471,7 +471,7 @@ dictionary.df[n1,13] <- "oryza sativa"
 #Adding description
 dictionary.df$Description1[dictionary.df$ID_3 == "23710.01"] <- "default pasta (spaghetti)"
 
-#Flour of sorghum, white
+# Flour of sorghum, white
 
 n1 <- dim(dictionary.df)[1]+1
 
@@ -500,7 +500,7 @@ dictionary.df[n1,12] <- NA
 dictionary.df[n1,13] <- "eleusine coracana"
 
 
-#Macaroni
+#Macaroni 
 n1 <- dim(dictionary.df)[1]+1
 
 n2 <- which(dictionary.df$ID_3 == "23710.01")
@@ -515,7 +515,7 @@ dictionary.df[n1,11] <- NA
 
 
 
-#rice, brown, boiled
+# rice grain, brown, boiled
 
 id3 <- "23162.01"
 
@@ -528,7 +528,7 @@ dictionary.df[n1,] <- dictionary.df[n2,]
 dictionary.df[n1,7] <- paste0( str_extract(id3, 
                                            "[[:alnum:]]{2,5}\\.\\d{1,2}\\.\\d{1}|[[:alnum:]]{2,5}\\.\\d{1}"),
                                as.numeric(str_extract(id3, "[[:digit:]]$"))+1)
-dictionary.df[n1,9] <- "rice, brown, boiled"
+dictionary.df[n1,9] <- "rice grain, brown, boiled"
 
 ## ├├  rice, milled (husked) (23161.01) -----
 
@@ -818,35 +818,35 @@ dictionary.df[n1,9] <- desc_new
 dictionary.df[n1,12] <- other_name
 dictionary.df[n1,13] <- scien_new
 
-# 23162 - Rice, brown, raw 
+# 23162 - Rice, brown, raw  -dupli
 #Manual inputs:
-id2 <- "23162"
-desc_new <- "rice grain, brown, dried, raw"
-fex2_new <- NA
-scien_new <- "oryza sativa"
-other_name <- NA
-
-#Auto inputs:
-id3 <- tail(sort(dictionary.df$ID_3[dictionary.df$ID_2 == id2]), n=1)
-id3_new <-ifelse(is.na(id3)|id3 == "", paste0(id2, ".01"),
-                 str_replace(id3, "[[:alnum:]]{1,3}$",
-                             formatC(seq(from = str_extract(id3, "[[:digit:]]{1,3}$"), 99),
-                                     width=2, flag=0)[2]))
-
-n1 <- dim(dictionary.df)[1]+1
-
-n2 <- ifelse(is.na(id3)|id3 == "", which(dictionary.df$ID_2 %in% id2),
-             which(dictionary.df$ID_3 %in% id3))
-
-#New entry - generation:
-dictionary.df[n1,] <- dictionary.df[n2,]
-#New entry - population:
-dictionary.df[n1,7] <- id3_new
-dictionary.df[n1,8] <- fex2_new
-dictionary.df[n1,9] <- desc_new
-dictionary.df[n1,12] <- other_name
-dictionary.df[n1,13] <- scien_new
-
+# id2 <- "23162"
+# desc_new <- "rice grain, brown, dried, raw"
+# fex2_new <- NA
+# scien_new <- "oryza sativa"
+# other_name <- NA
+# 
+# #Auto inputs:
+# id3 <- tail(sort(dictionary.df$ID_3[dictionary.df$ID_2 == id2]), n=1)
+# id3_new <-ifelse(is.na(id3)|id3 == "", paste0(id2, ".01"),
+#                  str_replace(id3, "[[:alnum:]]{1,3}$",
+#                              formatC(seq(from = str_extract(id3, "[[:digit:]]{1,3}$"), 99),
+#                                      width=2, flag=0)[2]))
+# 
+# n1 <- dim(dictionary.df)[1]+1
+# 
+# n2 <- ifelse(is.na(id3)|id3 == "", which(dictionary.df$ID_2 %in% id2),
+#              which(dictionary.df$ID_3 %in% id3))
+# 
+# #New entry - generation:
+# dictionary.df[n1,] <- dictionary.df[n2,]
+# #New entry - population:
+# dictionary.df[n1,7] <- id3_new
+# dictionary.df[n1,8] <- fex2_new
+# dictionary.df[n1,9] <- desc_new
+# dictionary.df[n1,12] <- other_name
+# dictionary.df[n1,13] <- scien_new
+# 
 # 23162 - Rice, red native, hulled, raw 
 #Manual inputs:
 id2 <- "23162"
@@ -1144,6 +1144,8 @@ for(i in 1:length(food_desc)){
   dictionary.df[n1,14] <- taxon[i]
   dictionary.df[n1,15] <- taxon_ref
 }
+
+#UP TO HERE --------
 
 ## ├├  malt extract (23999.01) -----
 

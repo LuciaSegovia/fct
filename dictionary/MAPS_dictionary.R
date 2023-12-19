@@ -44,7 +44,164 @@ dictionary.df$ID_0[dictionary.df$ID_3 == "23511.02.01"] <- "OT"
 
 ### Cereals (CE) ----
 
-## ├├  barley (115.01) -----
+## Wheat & products (2511) ----
+
+## ├├  wheat (111) -----
+
+## ├├  Wheat and meslin flour (23110) -----
+
+food_desc <-  c("wheat flour, refined, fortified (GHA, SLE), dried, raw")
+
+other_name <- c(rep(NA, 1))
+
+scientific_name <- tolower(c("Triticum spp."))
+
+taxon <- c(NA)
+
+fex2_new <- c(NA)
+
+dictionary.df <- add_dict(dictionary.df, id2 = "23110", food_desc, 
+                          other_name, scientific_name, taxon, fex2_new)
+
+## ├├  bran of wheat (39120.01) -----
+
+food_desc <-  c("wheat, bran, dried, raw")
+
+other_name <- c(rep(NA, 1))
+
+scientific_name <- tolower(c("triticum spp."))
+
+taxon <- c(NA)
+
+fex2_new <- c(NA)
+
+dictionary.df <- add_dict(dictionary.df, id2 = "39120.01", food_desc, 
+                          other_name, scientific_name, taxon, fex2_new)
+
+## ├├  uncooked pasta, not stuffed or otherwise prepared (23710) -----
+
+food_desc <-  c("macaroni, pasta, wheat, dried, raw")
+
+other_name <- c(rep(NA, 1))
+
+scientific_name <- tolower(c("Triticum spp."))
+
+taxon <- c(NA)
+
+fex2_new <- c(NA)
+
+dictionary.df <- add_dict(dictionary.df, id2 = "23710", food_desc, 
+                          other_name, scientific_name, taxon, fex2_new)
+
+## ├├  bread (F0020) -----
+
+food_desc <-  c("chapati, wheat flour, refined",
+                "chapati, wheat flour, unrefined",
+                "chapati, wheat flour, unrefined, with ghee",
+                "chapati, wheat flour, refined, with fortified ghee",
+                "bread, sweet, wheat flour, refined")
+
+other_name <- c(rep(NA, 2),
+                " \"Indian chapati\"",
+                rep(NA, 2))
+
+scientific_name <- c(rep(NA,  5))
+
+taxon <- c(NA)
+
+fex2_new <- c(NA)
+
+dictionary.df <- add_dict(dictionary.df, id2 = "F0020", food_desc, 
+                          other_name, scientific_name, taxon, fex2_new)
+
+## ├├  pastry (F0022) -----
+
+food_desc <-  c("dough, fried", "cake, plain butter", "cake, fruit",
+                "cake, sponge, homemade", "cake, sponge, without fat", 
+                "cake, iced", "croissant, plain, unfortified",
+                "biscuit, savoury")
+
+other_name <- c("mandazi (TZ06, KE18)", "cupcake", rep(NA,5))
+
+scientific_name <- c(NA)
+fex2_new <- c(NA)
+
+dictionary.df <- add_dict(dictionary.df, id2 = "F0022", food_desc, 
+                          other_name, scientific_name, taxon, fex2_new)
+
+## ├├  food preparations of flour, meal or malt extract (23999.02) -----
+	
+food_desc <-  c()
+
+other_name <- c()
+
+scientific_name <- c(NA)
+fex2_new <- c(NA)
+
+dictionary.df <- add_dict(dictionary.df, id2 = "23999.02", food_desc, 
+                          other_name, scientific_name, taxon, fex2_new)
+
+## Rice & products (2805) ----
+
+## ├├  husked rice (23162) -----
+
+food_desc <-  c("rice grain, brown, dried, raw", 
+                "rice grain, brown, boiled",
+                "rice grain, red native, brown, dried, raw")
+
+other_name <- c(rep(NA, 2), "African rice, hulled")
+
+scientific_name <- c(rep("oryza sativa", 2),
+                     "oryza glaberrima")
+
+taxon <- c(NA)
+
+fex2_new <- c(NA)
+
+dictionary.df <- add_dict(dictionary.df, id2 = "23162", food_desc, 
+                          other_name, scientific_name, taxon, fex2_new)
+
+## ├├  rice, milled (husked) (23161.01) -----
+
+food_desc <-  c("rice, parboiled, imported, raw",
+                "rice, parboiled, imported, boiled",
+                "rice, white, imported, steamed")
+
+other_name <- c(rep(NA, 3))
+
+scientific_name <- c(rep("oryza sativa", 3))
+
+taxon <- c(NA)
+fex2_new <- c(NA)
+
+dictionary.df <- add_dict(dictionary.df, id2 = "23161.01", food_desc, 
+                          other_name, scientific_name, taxon, fex2_new)
+
+## ├├  rice, milled (23161.02) -----
+
+food_desc <-  c("rice grain, parboiled, local, dried, raw",
+                "rice grain, parboiled, local, dried, boiled",
+                "rice grain, red native, milled, local, dried, raw", 
+                "rice grain, white, local, steamed", 
+                "rice grain, white, local, boiled", 
+                "rice grain, white, polished, local, dried, boiled")
+
+other_name <- c(rep(NA, 2), "African rice, milled",
+                rep(NA, 3))
+
+scientific_name <- c(rep("oryza sativa", 2), 
+                     "oryza glaberrima", 
+                     rep("oryza sativa", 3))
+
+taxon <- c(NA)
+fex2_new <- c(NA)
+
+dictionary.df <- add_dict(dictionary.df, id2 = "23161.02", food_desc, 
+                          other_name, scientific_name, taxon, fex2_new)
+
+## Barley  & products	(2513)  -----
+
+## ├├  barley (115) -----
 
 food_desc <-  c("barley grain, dried, unrefined, raw")
 
@@ -55,88 +212,121 @@ scientific_name <- c(rep("hordeum vulgare", 1))
 taxon <- c(NA)
 fex2_new <- c(NA)
 
-# One input
-id2 <- "115.01"
-desc1 <-  c("Barley")
-ref1 <-  c("https://www.fao.org/faostat/en/#data/SCL")
-taxon_ref <- c(NA)
+dictionary.df <- add_dict(dictionary.df, id2 = "115", food_desc, 
+                 other_name, scientific_name, taxon, fex2_new)
 
-# Function: 
-for(i in 1:length(food_desc)){
-  
-  id2 <- id2
-  id3 <- tail(sort(dictionary.df$ID_3[dictionary.df$ID_2 == id2]), n=1)
-  id3_new <-ifelse(is.na(id3)|id3 == "", paste0(id2, ".01"),
-                   str_replace(id3, "[[:alnum:]]{1,3}$",
-                               formatC(seq(from = str_extract(id3, "[[:digit:]]{1,3}$"), 99),
-                                       width=2, flag=0)[2]))
-  
-  n1 <- dim(dictionary.df)[1]+1
-  
-  n2 <- ifelse(is.na(id3)|id3 == "", which(dictionary.df$ID_2 %in% id2),
-               which(dictionary.df$ID_3 %in% id3))
-  
-  #New entry - generation:
-  dictionary.df[n1,] <- dictionary.df[n2,]
-  #New entry - population:
-  dictionary.df[n1,7] <- id3_new
-  dictionary.df[n1,8] <- fex2_new[i]
-  dictionary.df[n1,9] <- food_desc[i]
-  dictionary.df[n1,10] <- desc1
-  dictionary.df[n1,11] <- ref1
-  dictionary.df[n1,12] <- other_name[i]
-  dictionary.df[n1,13] <- scientific_name[i]
-  dictionary.df[n1,14] <- taxon[i]
-  dictionary.df[n1,15] <- taxon_ref
-}
+## Maize & products	(2514) -----
 
+## ├├  flour of maize (23120.03) -----
+	
+food_desc <-  ("maize flour, yellow, unrefined, non-fermented, raw")
+
+other_name <- c("corn meal")
+
+scientific_name <- c(rep("Zea mays L.", 1))
+
+taxon <- c(NA)
+fex2_new <- c(NA)
+
+dictionary.df <- add_dict(dictionary.df, id2 = "23120.03", food_desc, 
+                          other_name, scientific_name, taxon, fex2_new)
+
+## Sorghum & products	(2518) -----
+
+## ├├  sorghum (114) -----
+
+food_desc <-  ("sorghum grain, red, dried, raw",
+               "sorghum grain, white, dried, raw")
+
+other_name <- c(rep(NA, 2))
+
+scientific_name <- c(rep("sorghum bicolor", 2))
+
+taxon <- c(NA)
+fex2_new <- c(NA)
+
+dictionary.df <- add_dict(dictionary.df, id2 = "114", food_desc, 
+                          other_name, scientific_name, taxon, fex2_new)
+
+
+## ├├  flour of sorghum (23120.06) -----
+
+food_desc <-  c("sorghum flour, red, raw",
+                "sorghum flour, white, raw")
+
+other_name <- c(rep(NA, 2))
+
+scientific_name <- c(rep("sorghum bicolor", 2))
+
+taxon <- c(NA)
+fex2_new <- c(NA)
+
+dictionary.df <- add_dict(dictionary.df, id2 = "23120.06", food_desc, 
+         other_name, scientific_name, taxon, fex2_new)
+
+## ├├  flour of millet, pearl (23120.05) -----
+
+food_desc <-  c("pearl millet flour, raw",
+                "finger millet flour, finger, raw")
+
+other_name <- c("bulrush millet", NA)
+
+scientific_name <- c("pennisetum glaucum", "eleusine coracana")
+
+taxon <- c(NA)
+fex2_new <- c(NA)
+
+dictionary.df <- add_dict(dictionary.df, id2 = "23120.05", food_desc, 
+                 other_name, scientific_name, taxon, fex2_new)
+
+## Oats  & products	(2516) -----
+
+## ├├  bran of oats (39120.06) -----
+
+food_desc <-  c("oat, bran, dried, raw")
+
+other_name <- c(rep(NA, 2))
+
+scientific_name <- c("avena sativa")
+
+taxon <- c(NA)
+fex2_new <- c(NA)
+
+dictionary.df <- add_dict(dictionary.df, id2 = "39120.06", food_desc, 
+                          other_name, scientific_name, taxon, fex2_new)
+
+
+## Cereals, other  & products	(2520) -----
+
+## ├├  other cereals n.e.c. (1199.9) -----
+
+food_desc <-  c("teff grain, dried, unrefined, raw",
+                "amaranth, grain, dried, raw" )
+
+other_name <- c(rep(NA, 2))
+
+scientific_name <- c("eragrostis tef", 
+                     "amaranthus spp.")
+
+taxon <- c(NA)
+fex2_new <- c(NA)
+
+dictionary.df <- add_dict(dictionary.df, id2 = "1199.9", food_desc, 
+                          other_name, scientific_name, taxon, fex2_new)
 
 ## ├├  cereal preparations (23140.08) -----
 
-food_desc <-  c("barley grain, dried, unrefined, raw")
+food_desc <-  
 
-other_name <- c(rep(NA, 1))
+other_name <- c(NA)
 
-scientific_name <- c(rep("hordeum vulgare", 1))
+scientific_name <- c(NA)
 
 taxon <- c(NA)
 fex2_new <- c(NA)
 
-# One input
-id2 <- "115.01"
-desc1 <-  c("Barley")
-ref1 <-  c("https://www.fao.org/faostat/en/#data/SCL")
-taxon_ref <- c(NA)
-
-# Function: 
-for(i in 1:length(food_desc)){
-  
-  id2 <- id2
-  id3 <- tail(sort(dictionary.df$ID_3[dictionary.df$ID_2 == id2]), n=1)
-  id3_new <-ifelse(is.na(id3)|id3 == "", paste0(id2, ".01"),
-                   str_replace(id3, "[[:alnum:]]{1,3}$",
-                               formatC(seq(from = str_extract(id3, "[[:digit:]]{1,3}$"), 99),
-                                       width=2, flag=0)[2]))
-  
-  n1 <- dim(dictionary.df)[1]+1
-  
-  n2 <- ifelse(is.na(id3)|id3 == "", which(dictionary.df$ID_2 %in% id2),
-               which(dictionary.df$ID_3 %in% id3))
-  
-  #New entry - generation:
-  dictionary.df[n1,] <- dictionary.df[n2,]
-  #New entry - population:
-  dictionary.df[n1,7] <- id3_new
-  dictionary.df[n1,8] <- fex2_new[i]
-  dictionary.df[n1,9] <- food_desc[i]
-  dictionary.df[n1,10] <- desc1
-  dictionary.df[n1,11] <- ref1
-  dictionary.df[n1,12] <- other_name[i]
-  dictionary.df[n1,13] <- scientific_name[i]
-  dictionary.df[n1,14] <- taxon[i]
-  dictionary.df[n1,15] <- taxon_ref
-}
-
+dictionary.df <- add_dict(dictionary.df, id2 = "23140.08", food_desc, 
+                          other_name, scientific_name, taxon, fex2_new)
 
 ### Pulses and Beans (PB) ----
 
@@ -406,7 +596,7 @@ fex2_new <- c(rep(NA, 5), "A049A#F02.A06CK$F01.A066J$F27.A049A",
 
 # Fixed input
 id2 <- "F1232"
-desc1 <-  "Including both crop and livestock products. Inter alia: homogenized composite food preparations; soups and broths; ketchup and other sauces; mixed condiments and seasonings; vinegar and substitutes; yeast and baking powders; stuffed pasta, whether or not cooked; couscous; and protein concentrates. Include inter alia: turtle eggs and birds' nests. (Unofficial definition)"
+desc1 <- "Including both crop and livestock products. Inter alia: homogenized composite food preparations; soups and broths; ketchup and other sauces; mixed condiments and seasonings; vinegar and substitutes; yeast and baking powders; stuffed pasta, whether or not cooked; couscous; and protein concentrates. Include inter alia: turtle eggs and birds' nests. (Unofficial definition)"
 ref1 <-  c(NA)
 
 # Function: 
@@ -592,4 +782,55 @@ for(i in 1:length(food_desc)){
   dictionary.df[n1,15] <- taxon_ref
 }
 
+## ├├  Food preparations (incl. sauces) (F1232) -----
 
+# Here we included all ready-to-eat and as consumed foods that require preparation
+
+food_desc <-  c("mayonnaise", "soup", "potash", "chilli sauce", "maize porridge", 
+                "yeast, baking", "baking powder", 
+                "baking soda, powder", "groundnut sauce", 
+                "soup, tomato, condensed, canned", 
+                "stock cube, beef", "stock cube, chicken", 
+                "stock cube, vegetables", "stock cube, low sodium", 
+                "cowpea, fried cakes", "maize dough, fermened, from maize grain", 
+                "maize porridge, fermented from white maize, cooked", 
+                "soup, chicken, beer yeast, vegetables and fermented African locus beans", 
+                "soup, cabbage and vegetables", 
+                "cassava and unripe plantain, mashed, cooked",                  
+                "cassava and ripe plantain, mashed, cooked", 
+                "yam and cassava, mashed, cooked", 
+                "baked beans", "luncheon beef",
+                "couscous, wheat", "falafel", 
+                "pasta, macaroni, refined, dried, boiled",
+                "pasta, spaghetti, refined, dried, boiled", 
+                "beans, shellie, canned", 
+                "rice, egg, fried", 
+                "burger, hamburger, takeaway",
+                "kebab in pitta bread with salad",
+                "injera, teff grain, cooked",
+                "plantain chips, salted",
+                "cake, rice flour, fried",
+                "snacks, corn based",
+                "snacks, cheese flavour", "snacks, potato based")
+
+scientific_name <- c(rep(NA,16), "zea mays", rep(NA, 7), "triticum durum",
+                     rep(NA,145)
+
+other_name <- c(rep(NA,7), "bicarbonate of soda", NA, NA, 
+                "beef seasoning cube", "chicken seasoning cube", 
+                "vegetable seasoning cube", "low Na seasoning cube" ,
+                "boussan touba (Burkina Faso) (WA19), beans akara (Sierra Leone)", 
+                "kenkey (WA19), agidi (stiff maize dough) (Sierra Leone)", 
+                "ogi (WA19), pap (Sierra Leone)", 
+                rep("recipe from Burkina Faso in WA19", 2), 
+                rep("Banakou né (Burkina Faso) (WA19), Yebbe (Sierra Leone)", 3), 
+                rep(NA, 5), "egg, fried rice", 
+                rep(NA, 6), "cheese straws/twists (UK21)",
+                "pringle-type, fried potato snack (UK21)")
+
+fex2_new <- c(rep(NA, 5), "A049A#F02.A06CK$F01.A066J$F27.A049A", 
+              "A048Q#F02.A06CG", 
+              rep(NA, 34))
+
+dictionary.df <- add_dict(dictionary.df, id2 = "F1232", food_desc, 
+                          other_name, scientific_name, taxon, fex2_new)
