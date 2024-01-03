@@ -1145,7 +1145,6 @@ for(i in 1:length(food_desc)){
   dictionary.df[n1,15] <- taxon_ref
 }
 
-#UP TO HERE --------
 
 ## ├├  malt extract (23999.01) -----
 
@@ -1553,9 +1552,7 @@ for(i in 1:length(food_desc)){
 
 #├ New item (ID_3) ----
 
-##├├  Fish -----
-
-# Dried fish - general (00)
+##├├ [NEED TO BE ADDED] Dried fish - general (00) -----
 
 n1 <- dim(dictionary.df)[1]+1
 
@@ -1571,7 +1568,7 @@ dictionary.df[n1,11] <- NA
 dictionary.df[n1,12] <- NA
 dictionary.df[n1,13] <- NA
 
-#Sardines, grilled
+# Sardines, grilled
 
 id3 <- "1533.01"
 
@@ -2674,6 +2671,7 @@ for(i in 1:length(food_desc)){
 fish_name <-  c("atlantic horse mackerel",
                 "Barracuda",
                 "common dolphinfish")
+
 scientific_name <-  c("trachurus trachurus",
                       "sphyraena spp.", 
                       "coryphaena hippurus")
@@ -3266,6 +3264,75 @@ for(i in 1:length(food_desc)){
   dictionary.df[n1,13] <- scientific_name[i]
 }
 
+## ├├  Crustaceans, fresh (1553) -----
+
+food_desc <- tolower(c("freshwater prawns", "marine shrimp" ))
+
+isscaap <- c("45", "45" )
+
+taxo <- c(NA, NA)
+
+alpha <- c("PAL", "PAL" )
+
+scientific_name <-  tolower(c("Family: Palaemonidae",
+                              "Family: Penaeidae"))
+
+other_name <- c("Shrimp, palaemonid (WA19)", 
+                "Shrimp, penaeid (WA19)")
+
+
+#Fixed
+id2 <- "1553"
+ref_taxon <-  "FAO-FIES. Aquatic Sciences and Fisheries Information System (ASFIS) species list. Retrievef from http://www.fao.org/fishery/collection/asfis/en (accessed 2022/08/01). (2022)"
+
+# Function: 
+for(i in 1:length(food_desc)){
+  
+  id2 <- id2
+  
+  id3 <- tail(sort(dictionary.df$ID_3[dictionary.df$ID_2 == id2]), n=1)
+  id3_new <-ifelse(is.na(id3)|id3 == "", paste0(id2, ".01"),
+                   str_replace(id3, "[[:alnum:]]{1,3}$",
+                               formatC(seq(from = str_extract(id3, "[[:digit:]]{1,3}$"), 99),
+                                       width=2, flag=0)[2]))
+  
+  n1 <- dim(dictionary.df)[1]+1
+  
+  n2 <- ifelse(is.na(id3)|id3 == "", which(dictionary.df$ID_2 %in% id2),
+               which(dictionary.df$ID_3 %in% id3))
+  
+  #New entry - generation:
+  dictionary.df[n1,] <- dictionary.df[n2,]
+  #New entry - population:
+  dictionary.df[n1,7] <- id3_new
+  dictionary.df[n1,8] <- NA
+  dictionary.df[n1,9] <- paste0(food_desc[i], ", fresh, raw")
+  dictionary.df[n1,10] <- paste0("ISSCAAP Code: ", isscaap[i],"; Taxonomic Code: ", taxo[i], "; Inter-Agency3-Alpha Code: ", alpha[i])
+  dictionary.df[n1,11] <- ref_taxon
+  dictionary.df[n1,12] <- other_name[i]
+  dictionary.df[n1,13] <- scientific_name[i]
+  dictionary.df[n1,14] <- NA
+}
+
+
+#Silver cyprinid
+subset(dictionary.df, ID_2 == "1505")
+
+n1 <- dim(dictionary.df)[1]+1
+
+n2 <- which(dictionary.df$ID_3 == "1505.03")
+
+dictionary.df[n1,] <- dictionary.df[n2,]
+
+dictionary.df[n1,7] <- "1505.07"
+dictionary.df[n1,8] <- NA
+dictionary.df[n1,9] <- "cyprinid, silver, dried, raw"
+dictionary.df[n1,10] <- "ISSCAAP Code:11; Taxonomic Code:1400207001; Inter-Agency3-Alpha Code:ENA"
+dictionary.df[n1,11] <- "FAO-FIES. Aquatic Sciences and Fisheries Information System (ASFIS) species list. Retrievef from http://www.fao.org/fishery/collection/asfis/en (accessed 2022/07/19). (2022)"
+dictionary.df[n1,12] <- "Lake Victoria sardine (https://www.catalogueoflife.org/data/taxon/4RLTW)"
+dictionary.df[n1,13] <- "rastrineobola argentea"
+
+
 ############ End fish ##################
 
 # 22221.01 - Milk, cow, canned, evaporated
@@ -3355,56 +3422,6 @@ dictionary.df[n1,8] <- NA
 dictionary.df[n1,9] <- "beef, moderate fat, with bones, fresh, raw"
 dictionary.df[n1,13] <- "bos taurus"
 
-
-## ├├  Crustaceans, fresh (1553) -----
-
-food_desc <- tolower(c("freshwater prawns", "marine shrimp" ))
-
-isscaap <- c("45", "45" )
-
-taxo <- c(NA, NA)
-
-alpha <- c("PAL", "PAL" )
-
-scientific_name <-  tolower(c("Family: Palaemonidae",
-                              "Family: Penaeidae"))
-
-other_name <- c("Shrimp, palaemonid (WA19)", 
-                "Shrimp, penaeid (WA19)")
-
-
-#Fixed
-id2 <- "1553"
-ref_taxon <-  "FAO-FIES. Aquatic Sciences and Fisheries Information System (ASFIS) species list. Retrievef from http://www.fao.org/fishery/collection/asfis/en (accessed 2022/08/01). (2022)"
-
-# Function: 
-for(i in 1:length(food_desc)){
-  
-  id2 <- id2
-  
-  id3 <- tail(sort(dictionary.df$ID_3[dictionary.df$ID_2 == id2]), n=1)
-  id3_new <-ifelse(is.na(id3)|id3 == "", paste0(id2, ".01"),
-                   str_replace(id3, "[[:alnum:]]{1,3}$",
-                               formatC(seq(from = str_extract(id3, "[[:digit:]]{1,3}$"), 99),
-                                       width=2, flag=0)[2]))
-  
-  n1 <- dim(dictionary.df)[1]+1
-  
-  n2 <- ifelse(is.na(id3)|id3 == "", which(dictionary.df$ID_2 %in% id2),
-               which(dictionary.df$ID_3 %in% id3))
-  
-  #New entry - generation:
-  dictionary.df[n1,] <- dictionary.df[n2,]
-  #New entry - population:
-  dictionary.df[n1,7] <- id3_new
-  dictionary.df[n1,8] <- NA
-  dictionary.df[n1,9] <- paste0(food_desc[i], ", fresh, raw")
-  dictionary.df[n1,10] <- paste0("ISSCAAP Code: ", isscaap[i],"; Taxonomic Code: ", taxo[i], "; Inter-Agency3-Alpha Code: ", alpha[i])
-  dictionary.df[n1,11] <- ref_taxon
-  dictionary.df[n1,12] <- other_name[i]
-  dictionary.df[n1,13] <- scientific_name[i]
-  dictionary.df[n1,14] <- NA
-}
 
 
 ## ├├ Cream, fresh (22120) -----
@@ -3498,24 +3515,6 @@ for(i in 1:length(food_desc)){
   dictionary.df[n1,12] <- other_name[i]
   dictionary.df[n1,13] <- scientific_name[i]
 }
-
-
-#Silver cyprinid
-subset(dictionary.df, ID_2 == "1505")
-
-n1 <- dim(dictionary.df)[1]+1
-
-n2 <- which(dictionary.df$ID_3 == "1505.03")
-
-dictionary.df[n1,] <- dictionary.df[n2,]
-
-dictionary.df[n1,7] <- "1505.07"
-dictionary.df[n1,8] <- NA
-dictionary.df[n1,9] <- "cyprinid, silver, dried, raw"
-dictionary.df[n1,10] <- "ISSCAAP Code:11; Taxonomic Code:1400207001; Inter-Agency3-Alpha Code:ENA"
-dictionary.df[n1,11] <- "FAO-FIES. Aquatic Sciences and Fisheries Information System (ASFIS) species list. Retrievef from http://www.fao.org/fishery/collection/asfis/en (accessed 2022/07/19). (2022)"
-dictionary.df[n1,12] <- "Lake Victoria sardine (https://www.catalogueoflife.org/data/taxon/4RLTW)"
-dictionary.df[n1,13] <- "rastrineobola argentea"
 
 
 #milk flavoured, chocolate 
@@ -4378,7 +4377,7 @@ dictionary.df[n1,13] <- scien_new
 
 
 
-## ├├ Animal fat prep (F1243.01) -----
+## ├├ Animal fat prep (F1243) -----
 
 # Manual inputs:
 food_desc <- c("animal, fat")
@@ -5004,6 +5003,7 @@ for(i in 1:length(food_desc)){
   dictionary.df[n1,13] <- scientific_name[i]
 }
 
+#UP TO HERE --------
 
 ### Pulses and Beans (PB) ----
 #Fixing ID_1
