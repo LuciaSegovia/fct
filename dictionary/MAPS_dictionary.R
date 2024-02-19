@@ -195,11 +195,11 @@ dictionary.df <- add_dict(dictionary.df, id2 = "23161.01", food_desc,
 ## ├├  rice, milled (23161.02) -----
 
 food_desc <-  c("rice grain, parboiled, local, dried, raw",
-                "rice grain, parboiled, local, dried, boiled",
+                "rice grain, parboiled, local, boiled",
                 "rice grain, red native, milled, local, dried, raw", 
                 "rice grain, white, local, steamed", 
                 "rice grain, white, local, boiled", 
-                "rice grain, white, polished, local, dried, boiled")
+                "rice grain, white, polished, local, boiled")
 
 other_name <- c(rep(NA, 2), "African rice, milled",
                 rep(NA, 3))

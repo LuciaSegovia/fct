@@ -5039,7 +5039,7 @@ dictionary.df[n1,13] <- "arachis hypogaea"
 
 food_desc <-  c("horse bean, dried, raw", 
                 "broad bean, dried, raw",
-                "broad bean, not soaked, boiled, drained")
+                "broad bean, dried, not soaked, boiled, drained")
 
 other_name <- c(rep(NA, 3))
 
