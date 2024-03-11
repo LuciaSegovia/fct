@@ -14,6 +14,9 @@ dictionary.df$scientific_name <- NA
 
 names(dictionary.df)
 
+# Loading the function to add new codes
+source(here::here("functions", "add_dict.R"))
+
 # Dictionary code corrections ----
 
 # Correcting ID_3
@@ -26,7 +29,6 @@ dictionary.df$ID_3[dictionary.df$FoodName_3 == "cake, banana"] <- "F0022.07"
 # Correcting FoodName_3
 dictionary.df$FoodName_3[dictionary.df$ID_3 == "23161.01.01"] <- "rice grain, imported, white, dried, raw"
 dictionary.df$FoodName_3[dictionary.df$ID_3 == "23161.02.01"] <- "rice grain, local, white, dried, raw"
-
 
 # Correcting fish dict codes (ID_2) (See documentation)
 dictionary.df$ID_2[dictionary.df$FoodName_2 == "freshwater fish, liver oil"] <- "15100"
@@ -282,7 +284,7 @@ dictionary.df <- add_dict(dictionary.df, id2 = "23120.03", food_desc,
 
 ## ├├  sorghum (114) -----
 
-food_desc <-  ("sorghum grain, red, dried, raw",
+food_desc <-  c("sorghum grain, red, dried, raw",
                "sorghum grain, white, dried, raw")
 
 other_name <- c(rep(NA, 2))
@@ -311,20 +313,6 @@ fex2_new <- c(NA)
 dictionary.df <- add_dict(dictionary.df, id2 = "23120.06", food_desc, 
          other_name, scientific_name, taxon, fex2_new)
 
-## ├├  flour of millet, pearl (23120.05) -----
-
-food_desc <-  c("pearl millet flour, raw",
-                "finger millet flour, finger, raw")
-
-other_name <- c("bulrush millet", NA)
-
-scientific_name <- c("pennisetum glaucum", "eleusine coracana")
-
-taxon <- c(NA)
-fex2_new <- c(NA)
-
-dictionary.df <- add_dict(dictionary.df, id2 = "23120.05", food_desc, 
-                 other_name, scientific_name, taxon, fex2_new)
 
 ## Oats  & products	(2516) -----
 
@@ -342,6 +330,42 @@ fex2_new <- c(NA)
 dictionary.df <- add_dict(dictionary.df, id2 = "39120.06", food_desc, 
                           other_name, scientific_name, taxon, fex2_new)
 
+## millet and products	(2517) -----
+
+## ├├  millet (118) -----
+
+food_desc <-  c("millet grain, dried, raw",
+                "finger millet grain, dried, raw",
+                "pearl millet grain, dried, unrefined, raw",
+                "pearl millet grain, dried, refined, raw")
+
+other_name <- c(rep(NA, 2),
+                rep("bulrush millet", 2))
+
+scientific_name <- c(NA, 
+                     "eleusine coracana" ,
+                     rep("pennisetum glaucum", 2))
+
+taxon <- c(NA)
+fex2_new <- c(NA)
+
+dictionary.df <- add_dict(dictionary.df, id2 = "118", food_desc, 
+                          other_name, scientific_name, taxon, fex2_new)
+
+## ├├  flour of millet, pearl (23120.05) -----
+
+food_desc <-  c("pearl millet flour, raw",
+                "finger millet flour, finger, raw")
+
+other_name <- c("bulrush millet", NA)
+
+scientific_name <- c("pennisetum glaucum", "eleusine coracana")
+
+taxon <- c(NA)
+fex2_new <- c(NA)
+
+dictionary.df <- add_dict(dictionary.df, id2 = "23120.05", food_desc, 
+                          other_name, scientific_name, taxon, fex2_new)
 
 ## Cereals, other  & products	(2520) -----
 
