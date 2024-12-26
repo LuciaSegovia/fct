@@ -129,7 +129,7 @@ fct_dict %>% filter(grepl("sweet", food_desc, ignore.case = TRUE) &
 fct_dict %>% filter(ID_3 == "142.01")
 
 
-# Getting the NCT for IHS4 -----
+# Getting the NCT for IHS4 ----- 
 
 # This matches are tailored to Se, but it can be done for any other MN
 # Nutrient of interest
