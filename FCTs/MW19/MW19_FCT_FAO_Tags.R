@@ -89,8 +89,14 @@ mw19_ej <- mwfct %>% dplyr::filter(fdc_id %in% mwi_water) %>%
 #Substituting old (incorrect) values to new values
 
 mwfct <- mwfct %>% dplyr::filter(!fdc_id %in% mwi_water) %>% 
-  bind_rows(., mw19_ej)
+  bind_rows(., mw19_ej) %>% 
+  mutate(food_desc = ifelse(is.na(food_desc), food_desc.x, food_desc),
+         source_fct = ifelse(is.na(source_fct), source_fct.x, source_fct))
 
+mwfct %>% filter(fdc_id == "MW01_0037") %>% select(food_desc.x, food_desc, 
+                                                   source_fct.x, source_fct)
+
+mwfct <- mwfct %>% select(-c(food_desc.x, source_fct.x))
 #Optional - check the data before saving
 glimpse(mwfct)
 

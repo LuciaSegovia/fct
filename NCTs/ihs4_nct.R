@@ -67,10 +67,10 @@ fct_dict %>%
 #   View()
   
   fct_dict %>% 
-    filter(grepl("banana", food_desc, ignore.case = TRUE) &
-    grepl("maize", food_desc, ignore.case = TRUE) &
+    filter(grepl("bean", food_desc, ignore.case = TRUE) &
+    grepl("dr", food_desc, ignore.case = TRUE) &
              source_fct %in% c("MW19", "KE18", "WA19"))  %>%
-    select(source_fct, ID_3,  fdc_id,food_desc,  CAmg, SEmcg, VITA_RAEmcg, VITB12mcg) %>% 
+    select(source_fct, ID_3,  fdc_id,food_desc, scientific_name,  WATERg, SEmcg, VITA_RAEmcg, VITB12mcg) %>% 
   View()
 
     
@@ -115,8 +115,10 @@ food_list %>% select(code, item, ID_3) %>% distinct() %>%
 food_list <- food_list %>% select(code, item, ID_3) %>% distinct() %>% 
   left_join(., dictionary.df) %>% select(1:3, FoodName_3, FoodName_1) 
 
-fct_dict %>% filter(grepl("sweet", food_desc, ignore.case = TRUE) &
-                      grepl("potato", food_desc, ignore.case = TRUE) #&
+fct_dict %>% 
+  filter(!is.na(ID_3)) %>% 
+  filter(grepl("coke|carbona", food_desc, ignore.case = TRUE) &
+                      grepl("", food_desc, ignore.case = TRUE) #&
                    #   source_fct %in% c("MW19", "KE18")
                      ) %>% 
   select(source_fct, fdc_id, food_desc, ID_3, WATERg, SEmcg) %>% View()
@@ -134,6 +136,26 @@ fct_dict %>% filter(ID_3 == "142.01")
 # This matches are tailored to Se, but it can be done for any other MN
 # Nutrient of interest
 mn <- "SEmcg"
+
+## Fixed specific for Se
+
+# Changing boiled to dried, and roasted to dried (apply retention factor)
+food_list$ID_3[food_list$code %in% c("313", "834")] <-  "142.01" 
+# Changing to whole grain (applying extration rates)
+food_list$ID_3[food_list$code %in% c("102")] <-  "23120.03.01" 
+# Boiled sweet potato - using only one bc no difference in Se compo
+food_list$ID_3[food_list$code %in% c("831")] <-  "1520.01.01" 
+food_list$ID_3[food_list$code %in% c("832")] <-  "1520.01.01"  
+# Changing small fish from NA source to KE18().
+food_list$ID_3[food_list$code %in% c("5023", "5123")] <-  "1505.07"  
+food_list$ID_3[food_list$code %in% c("835")] <-  "112.04"  
+# Ground bean to broad bean
+food_list$ID_3[food_list$code %in% c("307")] <-  "1702.02"  
+ # Maheu, Thobwa, Traditional beer (masese) changed to beer
+food_list$ID_3[food_list$code %in% c("910", "912", "913")] <-  "24310.01.01"  
+# Soft drink to US19
+food_list$ID_3[food_list$code %in% c("907")] <-  "24490.02"  
+
 
 # fct1 <- "Joy et al, 2015"
 fct1 <- "MW19"
@@ -212,6 +234,7 @@ fct <- fct %>% group_by(code, item) %>%
   summarise( 
    source_fct = paste0(source_fct, collapse = "; "), 
     fdc_id = paste0(fdc_id, collapse = "; "),
+    food_desc = paste0(food_desc, collapse = "; "),
      ID_3 = paste0(ID_3, collapse = "; "), 
    across(c("ENERCkcal", "WATERg", mn), as.numeric),
    across(is.numeric, median)) 
@@ -230,7 +253,7 @@ nct <-   read.csv(here::here("output", "fct_ihs5_v2.2.csv")) %>%
       item = "ihs5_fooditem", 
       source_fct = "ref_source", 
       fdc_id = "ref_fctcode", 
-      #   food_desc = "ref_fctitem", 
+      food_desc = "ref_fctitem", 
       WATERg = "WATER", 
       ENERCkcal = "ENERC1", 
       SEmcg = "SE", 
@@ -240,7 +263,6 @@ nct <-   read.csv(here::here("output", "fct_ihs5_v2.2.csv")) %>%
   
 head(nct)
 sum(duplicated(nct$code))
-
 
 
 # Combining dataset to complete IHS4 NCT (for Se)
@@ -256,7 +278,7 @@ nct <- nct %>% filter(!code %in% unique(fct$code)) %>%
   filter(!is.na(!!sym(mn)))
 
 # Checking the foods that retention factors needed to be applied
-# Changing to whole grain (applying extration rates) from Joy et al.(2015)
+# Changing to whole grain (applying extraction rates) from Joy et al.(2015)
 nct$SEmcg[nct$code %in% c("102")] <- nct$SEmcg[nct$code %in% c("102")]*0.4548653
 nct$comments[nct$code %in% c("102")] <- paste0("SEmcg value from ", 
                                           nct$source_fct[nct$code %in% c("102")], 
@@ -275,14 +297,22 @@ nct$comments[nct$code %in% c("313")] <- paste0("SEmcg value from ",
                                                ") (5.9g/100g) to WA19(03_116) 78g/100g")
 nct$WATERg[nct$code %in% c("313")] <- 78
 
+# Changing to whole grain (applying extraction rates) from KE18 RF
+nct$SEmcg[nct$code %in% c("834")] <- nct$SEmcg[nct$code %in% c("834")]*0.95
+nct$comments[nct$code %in% c("834")] <- paste0("SEmcg value from ", 
+                                               nct$source_fct[nct$code %in% c("834")], 
+                                               "(", nct$fdc_id[nct$code %in% c("834")], 
+                                               ") and applied retention factor from KE8 0.95")
+
+nct %>% count(source_fct)
 
 # Saving the NCT  ---------
 # Nutrient of interest
-# nct %>% 
-#     write.csv(., here::here("inter-output", "nct", 
-#                   paste0("ihs4_nct_", paste(mn, sep ="-"), "_v1.0.1.csv")),
-#               row.names = FALSE)
-#
+ nct %>% distinct() %>% arrange(code) %>% 
+     write.csv(., here::here("inter-output", "nct", 
+                   paste0("ihs4_nct_", paste(mn, sep ="-"), "_v1.0.1.csv")),
+               row.names = FALSE)
+
 
 names(nct)
 head(nct)
